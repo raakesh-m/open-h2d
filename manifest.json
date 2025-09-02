@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Page Capture Extension",
+  "version": "1.0",
+  "description": "A Chrome extension that captures page content",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["content.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Page Capture Extension"
+  }
+}
