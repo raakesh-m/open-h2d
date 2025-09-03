@@ -133,14 +133,14 @@ function makeCentralHeader(nameBytes, crc, size, offset) {
 function makeEndOfCentralDir(count, centralSize, centralOffset) {
   const eocd = new Uint8Array(22);
   const dv = new DataView(eocd.buffer);
-  dv.setUint32(0, 0x06054b50, true);
-  dv.setUint16(4, 0, true); // disk number
-  dv.setUint16(6, 0, true); // disk where central dir starts
-  dv.setUint16(8, count, true); // number of central dir records on this disk
-  dv.setUint16(10, count, true); // total number of central dir records
-  dv.setUint32(12, centralSize >>> 0, true); // size of central dir
-  dv.setUint32(16, centralOffset >>> 0, true); // offset of start of central dir
-  dv.setUint16(20, 0, true); // comment length
+  dv.setUint32(0, 0x06054b50, true); // End of central dir signature
+  dv.setUint16(4, 0, true); // number of this disk
+  dv.setUint16(6, 0, true); // number of the disk with the start of the central directory
+  dv.setUint16(8, count, true); // total number of entries in the central directory on this disk
+  dv.setUint16(10, count, true); // total number of entries in the central directory
+  dv.setUint32(12, centralSize, true); // size of the central directory
+  dv.setUint32(16, centralOffset, true); // offset of start of central directory
+  dv.setUint16(20, 0, true); // ZIP file comment length
   return eocd;
 }
 
