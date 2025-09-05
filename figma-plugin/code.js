@@ -219,7 +219,7 @@ class LayoutEngine {
     try {
       console.log('Starting layout reconstruction with:', {
         title: pageData.title,
-        elementsCount: pageData.elements?.length,
+        elementsCount: pageData.elements ? pageData.elements.length : 0,
         viewport: pageData.viewport,
         assetsCount: Object.keys(assets || {}).length
       });
@@ -338,7 +338,7 @@ class LayoutEngine {
   async createElement(elementData, parent, assets, index) {
     console.log(`Creating element ${index}:`, {
       tag: elementData.tag,
-      text: elementData.text?.substring(0, 30),
+      text: elementData.text ? elementData.text.substring(0, 30) : '',
       position: { x: elementData.x, y: elementData.y },
       size: { width: elementData.width, height: elementData.height },
       backgroundColor: elementData.backgroundColor,
@@ -424,7 +424,7 @@ class LayoutEngine {
       type: node.type,
       position: { x: node.x, y: node.y },
       size: { width: node.width, height: node.height },
-      fills: node.fills?.length > 0 ? 'has fills' : 'no fills'
+      fills: node.fills && node.fills.length > 0 ? 'has fills' : 'no fills'
     });
 
     return node;
@@ -718,8 +718,8 @@ async function handleImport(importData, settings) {
     // Enhanced validation with detailed logging
     console.log('Validating data structure...');
     console.log('Data object:', data);
-    console.log('Elements array:', data?.elements);
-    console.log('Elements length:', data?.elements?.length);
+    console.log('Elements array:', data ? data.elements : undefined);
+    console.log('Elements length:', data && data.elements ? data.elements.length : 0);
     
     if (!data || !data.elements) {
       console.error('VALIDATION FAILED: Missing data or elements');
@@ -744,7 +744,7 @@ async function handleImport(importData, settings) {
     data.elements.slice(0, 3).forEach((element, index) => {
       console.log(`Element ${index}:`, {
         tag: element.tag,
-        text: element.text?.substring(0, 50) + (element.text?.length > 50 ? '...' : ''),
+        text: element.text ? element.text.substring(0, 50) + (element.text.length > 50 ? '...' : '') : '',
         position: { x: element.x, y: element.y },
         size: { width: element.width, height: element.height },
         colors: { 
